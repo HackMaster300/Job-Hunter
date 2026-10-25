@@ -1,0 +1,86 @@
+{
+  "lang": "pt",
+  "name": "Ana Machava",
+  "headline": "Analista Financeira | Reporting, Orçamentação e Reconciliações Bancárias",
+  "contacts": [
+    "ana.machava@exemplo.com",
+    "+258 84 000 0000",
+    "Maputo, Moçambique",
+    "linkedin.com/in/anamachava"
+  ],
+  "summary": "Analista financeira com 6 anos de experiência em reporting mensal, orçamentação e reconciliações bancárias no setor bancário. Reduziu em 37% o tempo de fecho mensal através da automatização de processos em Excel e Power BI.",
+  "skills": {
+    "Técnicas": [
+      "Excel avançado",
+      "Power BI",
+      "SAP",
+      "Reconciliações bancárias",
+      "Orçamentação",
+      "Reporting financeiro"
+    ],
+    "Idiomas": [
+      "Português (nativo)",
+      "Inglês (C1)"
+    ]
+  },
+  "experience": [
+    {
+      "role": "Analista Financeira Sénior",
+      "company": "Banco Exemplo, S.A.",
+      "location": "Maputo",
+      "period": "Jan 2021 - Presente",
+      "bullets": [
+        "Automatizou as reconciliações bancárias de 14 contas, reduzindo o fecho mensal de 8 para 5 dias úteis.",
+        "Preparou o reporting mensal para a administração com 12 indicadores, em Power BI, usado por 9 diretores.",
+        "Coordenou a orçamentação anual de 6 departamentos com um orçamento total de 4,2 milhões de USD.",
+        "Identificou 38 mil USD de pagamentos duplicados durante a auditoria interna de 2022.",
+        "Formou 5 colegas em Excel avançado e normas internas de reporting."
+      ],
+      "confirmed_at": "2026-10-24"
+    },
+    {
+      "role": "Analista Financeira",
+      "company": "Empresa Alfa, Lda.",
+      "location": "Maputo",
+      "period": "Mar 2018 - Dez 2020",
+      "bullets": [
+        "Apoiou a orçamentação anual de 5 departamentos e o acompanhamento mensal de desvios.",
+        "Preparou 24 relatórios mensais de gestão para a direção financeira.",
+        "Executou reconciliações bancárias semanais de 6 contas com 99% de exatidão."
+      ],
+      "confirmed_at": "2026-10-24"
+    },
+    {
+      "role": "Estagiária de Contabilidade",
+      "company": "Auditores Beta",
+      "location": "Maputo",
+      "period": "Jun 2017 - Fev 2018",
+      "bullets": [
+        "Participou em 7 auditorias a pequenas e médias empresas, preparando papéis de trabalho.",
+        "Organizou a documentação de suporte de mais de 300 lançamentos contabilísticos."
+      ],
+      "confirmed_at": "2026-10-24"
+    }
+  ],
+  "education": [
+    {
+      "degree": "Licenciatura em Contabilidade e Finanças",
+      "school": "Universidade Eduardo Mondlane",
+      "period": "2013 - 2017",
+      "details": "Média final: 15 valores"
+    }
+  ],
+  "certifications": [
+    "Microsoft Power BI Data Analyst (2022)",
+    "Curso de Normas Internacionais de Relato Financeiro - IFRS (2020)"
+  ],
+  "extras": [
+    "Voluntária na associação de educação financeira para jovens, 2019 - 2021"
+  ],
+  "notes": "Exemplo de CV mestre (dados fictícios).",
+  "audit": {
+    "date": "2026-10-24",
+    "confirmed_by_user": true,
+    "notes": "Exemplo fictício"
+  }
+}

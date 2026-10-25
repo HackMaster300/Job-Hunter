@@ -1,0 +1,25 @@
+{
+  "lang": "pt",
+  "sender": [
+    "Ana Machava",
+    "ana.machava@exemplo.com",
+    "+258 84 000 0000",
+    "Maputo, Moçambique"
+  ],
+  "date": "23 de outubro de 2026",
+  "recipient": [
+    "Equipa de Recrutamento",
+    "Banco Exemplo, S.A.",
+    "Maputo"
+  ],
+  "subject": "Candidatura: Analista Financeiro Sénior",
+  "salutation": "Exmos. Senhores,",
+  "paragraphs": [
+    "Candidato-me à vaga de Analista Financeiro Sénior no Banco Exemplo, publicada na vossa página de carreiras. Nos últimos seis anos trabalhei exatamente na intersecção que a função pede: reporting para a administração, orçamentação e controlo de reconciliações bancárias.",
+    "No cargo atual automatizei as reconciliações de 14 contas bancárias, o que reduziu o fecho mensal de 8 para 5 dias úteis, e construí um painel em Power BI com 12 indicadores que a administração usa todos os meses. Na auditoria interna de 2022 identifiquei 38 mil USD de pagamentos duplicados, o que mostra o tipo de rigor que posso trazer à vossa equipa.",
+    "Interessa-me o Banco Exemplo porque a vaga fala em modernizar o processo de fecho e em dar mais visibilidade à administração, que são precisamente os problemas em que tenho resultados concretos. Gostava de aprofundar a minha experiência em orçamentação num contexto de maior escala.",
+    "Fico disponível para uma entrevista na data que for mais conveniente e agradeço desde já a vossa atenção."
+  ],
+  "closing": "Com os melhores cumprimentos,",
+  "signature": "Ana Machava"
+}

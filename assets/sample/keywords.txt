@@ -1,0 +1,7 @@
+# * = obrigatória; | separa sinónimos
+*reconciliações bancárias|bank reconciliation
+*reporting
+*orçamentação|budgeting
+Power BI
+SAP
+IFRS

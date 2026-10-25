@@ -1,0 +1,31 @@
+# --- Documentos pessoais ---
+# O CV e documentos gerados ficam na pasta de trabalho; nunca vão para o repositório.
+*.pdf
+*.docx
+
+# --- Dados de candidaturas (criados pelo instalador / jh.py init) ---
+candidaturas/
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# --- Editores e sistema ---
+.vscode/
+.idea/
+*.swp
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Ambiente ---
+.env
+.env.*
