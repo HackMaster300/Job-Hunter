@@ -390,6 +390,12 @@ Regra para qualquer versão futura: **nunca submeter nada sem confirmação expl
 
 ---
 
+## Licença
+
+Apache License 2.0: ver [LICENSE](LICENSE).
+
+---
+
 ## Créditos
 
 <p align="center">

@@ -5,6 +5,7 @@ Versões semânticas; cada versão tem uma tag `vX.Y.Z` e corresponde ao pacote 
 ## 1.6.0
 - Pacote npm `job-hunter-skill`: `npx job-hunter-skill install|doctor|selftest|jh ...`.
 - `jh version`; o instalador já não copia ficheiros de npm nem imagens para a skill instalada.
+- Licença Apache-2.0.
 - Workflow de release por tag (`.github/workflows/release.yml`).
 
 ## 1.5.0

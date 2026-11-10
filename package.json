@@ -12,6 +12,7 @@
     "assets/",
     "SKILL.md",
     "README.md",
+    "LICENSE",
     "INSTALL.md",
     "requirements.txt",
     "docs/img/job-hunter-banner.png",
@@ -41,6 +42,6 @@
   "bugs": {
     "url": "https://github.com/HackMaster300/Job-Hunter/issues"
   },
-  "license": "UNLICENSED",
+  "license": "Apache-2.0",
   "author": "ZHARAK"
 }
