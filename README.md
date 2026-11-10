@@ -45,13 +45,16 @@ Candidatar-se bem dá trabalho e falha quase sempre pelos mesmos motivos. Esta s
 | CV **genérico**, igual para todas as vagas | Análise de fit e palavras-chave por vaga, CV e carta adaptados a cada uma |
 | **Auto-aprovação**: quem escreve acha sempre que está bom | O escritor nunca aprova o próprio trabalho: seis revisores com contexto próprio decidem |
 | Ficheiros espalhados e prazos esquecidos | Uma pasta por vaga, README de instruções e um tracker com dias que faltam |
+| **Poucas vagas** à vista, encontradas à mão | `jh scan` lê feeds e APIs sem gastar tokens, deduplica, filtra e tria em lote |
+| Gastar horas numa vaga **sem hipótese** | Avaliação A-G com nota 0-5 e evidência; lacuna eliminatória ou anúncio suspeito travam antes de escrever |
+| **Esquecer** candidaturas já enviadas | Follow-up com cadência 7/14/21 dias, análise de padrões e banco de histórias STAR+R |
 
 ---
 
 ## Como funciona, numa imagem
 
 <p align="center">
-  <img src="docs/img/job-hunter-fluxo.png" alt="Fluxo: auditoria do CV, procurar vagas, pasta da vaga, escrever rascunho, portão de revisão em três etapas, e decisão: aprovado vai para final/, reprovado volta ao escritor" width="100%">
+  <img src="docs/img/job-hunter-fluxo.png" alt="Fluxo: auditoria do CV, scan e triagem, avaliação A-G, escrever rascunho, portão de revisão em três etapas, decisão (aprovado vai para final/, reprovado volta ao escritor) e acompanhamento depois do envio" width="100%">
 </p>
 
 Em uma frase: **um agente escreve; seis tentam reprovar; só sai o que passa em todos, sobre a mesma versão do texto.**
@@ -241,25 +244,42 @@ candidaturas/
 
 ---
 
+## Fontes de vagas
+
+| Fonte | Como entra |
+|---|---|
+| Greenhouse, Lever, Ashby (empresas tech) | `jh scan run`, por API pública |
+| RemoteOK, Remotive, WeWorkRemotely (remoto) | `jh scan run` |
+| **Sovagas** (Moçambique) | `jh scan run`, por RSS (`perfil/portais.json`) |
+| ReliefWeb (ONU, ONGs) | `jh scan run`, precisa de `appname` próprio (desligada por omissão) |
+| **LinkedIn**, **jobs.ch** | **Não são lidos automaticamente** (termos de uso e `robots.txt`). `jh scan links` gera as pesquisas, abres tu, colas o texto e `jh scan add` mete a vaga no funil |
+
+O Sovagas publica artigos, não vagas estruturadas: ajustar `perfil/scan.json` (`titulos_incluir`) senão quase tudo é filtrado.
+
+---
+
 ## Comandos
 
 Tudo passa por um único comando: `python <skill>/scripts/jh.py <comando>`. Normalmente é a skill que os executa por ti, mas podes usá-los diretamente.
 
 | Comando | Para quê |
 |---|---|
+| `scan` | Funil de vagas sem LLM: `run`, `triage-export`/`triage-apply`, `shortlist`, `promote`, `links`, `add` |
+| `eval` | Avaliação da vaga: nota 0-5 ponderada, bloqueios e `fit` no tracker |
+| `stories` | Banco de histórias STAR+R validado contra o CV mestre |
 | `init` | Cria a pasta de uma vaga e regista-a no tracker |
 | `build` | Gera CV ou carta em `.docx` (com `--pdf` se houver LibreOffice) |
 | `check` | Verificações mecânicas ATS do CV e da carta |
 | `hash` | Calcula a versão do rascunho (`--write` grava-a para os revisores) |
 | `gate` | Valida a ronda e aprova ou reprova |
 | `audit` | `status` mostra o estado da auditoria; `confirm` regista-a |
-| `tracker` | `list` mostra as candidaturas por prazo e urgência; `set` muda o estado |
+| `tracker` | `list` por prazo e urgência; `set` muda o estado; `followup` o que pede ação; `followed` regista; `patterns` analisa o funil |
 | `extract` | Extrai texto de um CV em `.docx` ou `.pdf` |
 | `install` | Instala a skill e os subagentes no Claude Code e/ou OpenCode |
 | `doctor` | Verifica dependências e instalação |
 | `selftest` | Teste automático de ponta a ponta com dados fictícios |
 
-**Estados do tracker:** `encontrada` → `em_revisao` → `documentos_aprovados` → `enviada` → `entrevista` → `recusada` / `oferta` / `desistiu`. Os dois do meio são escritos pelo portão; os restantes atualizas tu (ou pedes à skill).
+**Estados do tracker:** `encontrada` → `em_revisao` → `documentos_aprovados` → `enviada` → `entrevista` → `recusada` / `oferta` / `desistiu` / `sem_resposta`. Os dois do meio são escritos pelo portão; os restantes atualizas tu (ou pedes à skill).
 
 **Idiomas do CV:** os títulos das secções seguem o campo `"lang"` (`pt`, `en`, `fr`, `es`); qualquer título pode ser substituído com `"labels"`. O conteúdo é escrito no idioma da vaga.
 
@@ -360,9 +380,9 @@ Os ficheiros em `references/agents/` são a **única fonte de verdade** dos revi
 
 ## Roadmap
 
-- **Atual (v1.3):** procura, análise, rascunho, portão multi-agente, auditoria do CV, README por vaga; Claude Code e OpenCode.
+- **Atual (v1.5):** scan multi-fonte, triagem em lote, avaliação A-G com nota, portão multi-agente, auditoria do CV, README por vaga, follow-up, padrões e histórias STAR+R; Claude Code e OpenCode.
 - **Próximo:** preencher formulários de candidatura com um browser automatizado, sempre com a tua revisão antes de submeter; criar rascunhos de email para aprovares.
-- **Depois:** monitorização periódica de vagas novas, alertas de prazos, follow-ups e simulação de entrevista.
+- **Depois:** monitorização periódica agendada de vagas novas e simulação de entrevista.
 
 Regra para qualquer versão futura: **nunca submeter nada sem confirmação explícita.**
 

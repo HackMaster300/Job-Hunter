@@ -174,6 +174,48 @@ def main():
         code, out = scan("promote", "--root", str(root), tid)
         pasta = Path(out.strip().splitlines()[-1]) if code == 0 else root
         expect("scan: promote cria vaga.md com texto e aviso de suspeita", code == 0 and "SQL e Power BI" in (pasta / "vaga.md").read_text(encoding="utf-8") and "SUSPEITA" in (pasta / "vaga.md").read_text(encoding="utf-8"), out)
+
+        # fase 2: avaliação, follow-up, padrões, histórias, scan add
+        ev = {"dimensoes": {k: {"nota": 4, "evidencia": "evidência concreta do anúncio e do CV"} for k in
+              ["requisitos_obrigatorios", "experiencia_relevante", "senioridade", "competencias_desejaveis", "local_modalidade",
+               "autorizacao_trabalho", "contrato_compensacao", "empresa_setor", "crescimento", "legitimidade"]}, "eliminatorias": []}
+        (job / "avaliacao.json").write_text(json.dumps(ev), encoding="utf-8")
+        code, out = run("eval", str(job))
+        expect("eval: nota 4.0 -> avançar forte e atualiza o tracker", code == 0 and "4.0" in out and "Alto (4.0)" in (root / "tracker.csv").read_text(encoding="utf-8"), out)
+        ev["eliminatorias"] = ["exige licenciatura que a pessoa não tem"]
+        (job / "avaliacao.json").write_text(json.dumps(ev), encoding="utf-8")
+        code, out = run("eval", str(job))
+        expect("eval: lacuna eliminatória bloqueia mesmo com nota alta", code == 2, out)
+        ev["eliminatorias"] = []; ev["dimensoes"]["legitimidade"]["evidencia"] = "curta"
+        (job / "avaliacao.json").write_text(json.dumps(ev), encoding="utf-8")
+        code, out = run("eval", str(job))
+        expect("eval: recusa dimensão sem evidência", code == 1, out)
+        ev["dimensoes"]["legitimidade"] = {"nota": 1, "evidencia": "pede taxa de inscrição por transferência"}
+        (job / "avaliacao.json").write_text(json.dumps(ev), encoding="utf-8")
+        code, out = run("eval", str(job))
+        expect("eval: vaga suspeita (legitimidade ≤ 2) não avança", code == 2 and "legitimidade" in out, out)
+
+        run("tracker", str(root), "set", job.name, "enviada", "--data", "2020-01-01")
+        code, out = run("tracker", str(root), "followup")
+        expect("followup: sugere follow-up #1 passados 7 dias", code == 0 and "follow-up #1" in out, out)
+        run("tracker", str(root), "followed", job.name)
+        run("tracker", str(root), "followed", job.name)
+        code, out = run("tracker", str(root), "followup")
+        expect("followup: depois da cadência sugere fechar", "sem resposta" in out, out)
+        run("tracker", str(root), "set", job.name, "recusada", "--data", "2020-01-20")
+        code, out = run("tracker", str(root), "patterns")
+        expect("patterns: funil e tempo de resposta", code == 0 and "Enviadas: 1" in out and "19 dias" in out, out)
+
+        (root / "perfil" / "stories.json").write_text(json.dumps([
+            {"id": "s1", "titulo": "Reconciliação", "experiencia": master["experience"][0]["company"], "situacao": "a", "tarefa": "b", "acao": "c", "resultado": "Reduzi 30% do tempo", "reflexao": "d", "tags": ["excel"]},
+            {"id": "s2", "titulo": "Inventada", "experiencia": "Empresa Que Não Existe", "situacao": "a", "tarefa": "b", "acao": "c", "resultado": "x", "reflexao": "d"}]), encoding="utf-8")
+        code, out = run("stories", str(root), "check")
+        expect("stories: recusa história de experiência que não está no CV mestre", code == 1 and "s2" in out and "s1: a experiência" not in out, out)
+
+        code, out = scan("add", "--root", str(root), "--empresa", "Beta", "--cargo", "Analista", "--url", "https://linkedin.test/9", "--fonte", "LinkedIn", "--texto", str(tri))
+        expect("scan add: vaga colada entra no funil como nova", code == 0 and "por triar" in out, out)
+        code, out = scan("links", "--root", str(root), "--cargo", "analista", "--local", "Maputo")
+        expect("scan links: gera links de LinkedIn, jobs.ch e Sovagas", all(x in out for x in ("linkedin.com", "jobs.ch", "sovagas.co.mz")), out)
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
     print("\n" + ("TUDO OK" if not fails else f"{len(fails)} FALHA(S): " + "; ".join(fails)))

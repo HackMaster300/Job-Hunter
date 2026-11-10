@@ -7,7 +7,7 @@ description: Assistente completo de candidaturas a emprego. Procura vagas na web
 
 Leva a pessoa de "onde posso concorrer?" a uma **pasta por vaga pronta a enviar**: vaga guardada, análise de fit, CV e carta adaptados e **aprovados por revisores independentes**, README com o passo a passo.
 
-**Âmbito (v1.4):** scan em massa → triagem → analisar → escrever → revisão multi-agente → README. A submissão é sempre feita pela pessoa. O que vem a seguir está em `references/roadmap.md` (não implementar agora).
+**Âmbito (v1.5):** scan em massa → triagem → avaliação A-G → escrever → revisão multi-agente → README → follow-up e padrões. A submissão é sempre feita pela pessoa. O que vem a seguir está em `references/roadmap.md` (não implementar agora).
 
 ## Princípios (e porquê)
 
@@ -28,7 +28,7 @@ Os scripts estão em `${CLAUDE_SKILL_DIR}/scripts/`. No **Claude Code** esta var
 python "${CLAUDE_SKILL_DIR}/scripts/jh.py" <comando> ...      # usar python3 em macOS/Linux se "python" não existir
 ```
 
-Daqui para a frente `jh` abrevia esse comando. Comandos: `scan`, `init`, `build`, `check`, `hash`, `gate`, `tracker`, `extract`, `audit`, `install`, `doctor`, `selftest`.
+Daqui para a frente `jh` abrevia esse comando. Comandos: `scan`, `eval`, `stories`, `init`, `build`, `check`, `hash`, `gate`, `tracker`, `extract`, `audit`, `install`, `doctor`, `selftest`.
 
 - **Primeira utilização:** correr `jh doctor`. Se faltar `python-docx`, instalar (`pip install python-docx`). LibreOffice é opcional (PDF e contagem de páginas exata).
 - **Pasta de trabalho:** `./candidaturas/` no diretório atual (ou onde a pessoa indicar). Não existe `present_files` nem pasta de saída especial: no fim, indicar os **caminhos** dos ficheiros.
@@ -89,7 +89,7 @@ A auditoria expira ao fim de 90 dias (configurável). Antes de cada nova vaga, s
 
 1. `jh init --root candidaturas --empresa "Empresa" --cargo "Cargo" --url "https://..." --prazo 2026-11-15 --local "Maputo"` (imprime o caminho da pasta; regista no tracker).
 2. `vaga.md`: colar o texto **integral** do anúncio (não resumir).
-3. `analise_fit.md`: requisitos obrigatórios vs. desejáveis, onde a pessoa cumpre (com evidência do master), lacunas e como mitigar honestamente, riscos (prazo, documentos pedidos, formato de envio, perguntas eliminatórias).
+3. `analise_fit.md` com os **blocos A-G** e `avaliacao.json` (nota 0-5, 10 dimensões com evidência): ler `references/evaluation.md`, depois `jh eval <pasta>`. Saída `2` (**não avançar**: nota baixa, lacuna eliminatória ou vaga suspeita) = parar e explicar à pessoa antes de gastar tempo nos documentos.
 4. `keywords.txt`: 8-15 termos do anúncio, um por linha; `*` nas obrigatórias; `|` para sinónimos (`*reconciliações bancárias|bank reconciliation`).
 
 5. **Levantamento por vaga:** para cada requisito marcado como lacuna ou fraco, perguntar à pessoa se já fez algo relacionado, mesmo pouco ou fora do trabalho (projeto, curso, voluntariado, ajuda a alguém). Se sim, registar no `master_cv.json` com números e prova **antes** de o usar; se não, é lacuna real e não se escreve.
@@ -139,6 +139,14 @@ Escrever `README.md` na pasta da vaga seguindo `references/readme-template.md`: 
 - Resumir: o que foi adaptado, o que a pessoa **tem** de verificar (factos, números, lacunas) e o prazo mais próximo (`jh tracker candidaturas list`).
 - **Se a vaga não foi aprovada, não apresentar `rascunho/` como pronto.**
 - Lembrar que o envio é da pessoa. Quando ela disser que enviou/foi chamada/recusada: `jh tracker candidaturas set <pasta> enviada` (estados em `scripts/tracker.py`).
+
+### Passo 7 - Depois do envio
+
+Ler `references/pos-candidatura.md`. Registar o envio (`jh tracker candidaturas set <pasta> enviada`), usar `jh tracker candidaturas followup` para saber o que pede ação (cadência 7/14/21 dias), redigir follow-ups e mensagens de contacto em `extras/` (a pessoa envia), analisar `patterns` quando houver dados e manter o banco de histórias (`jh stories`). Mesmas regras: só factos do CV aprovado.
+
+## Fontes que não se leem automaticamente
+
+LinkedIn e jobs.ch proíbem leitura automática (termos de uso e `robots.txt`): **não** fazer scraping nem contornar. Usar `jh scan links` para gerar as pesquisas, a pessoa abre-as, escolhe vagas e cola o texto; entram no funil com `jh scan add`. O Sovagas e outras fontes com feed entram em `perfil/portais.json`.
 
 ## Notas
 

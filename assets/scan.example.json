@@ -1,7 +1,44 @@
 {
-  "titulos_incluir": ["analyst", "analista", "data", "finance", "financ", "accountant", "contabil", "manager", "gestor", "coordinator", "coordenador"],
-  "titulos_excluir": ["intern", "estagi", "unpaid", "volunt", "senior director", "vp "],
-  "locais": ["mozambique", "mocambique", "maputo", "africa", "emea", "palop", "portugal"],
+  "titulos_incluir": [
+    "analyst",
+    "analista",
+    "data",
+    "finance",
+    "financ",
+    "accountant",
+    "contabil",
+    "manager",
+    "gestor",
+    "coordinator",
+    "coordenador"
+  ],
+  "titulos_excluir": [
+    "intern",
+    "estagi",
+    "unpaid",
+    "volunt",
+    "senior director",
+    "vp "
+  ],
+  "locais": [
+    "mozambique",
+    "mocambique",
+    "maputo",
+    "africa",
+    "emea",
+    "palop",
+    "portugal"
+  ],
   "aceitar_remoto": true,
-  "max_idade_dias": 45
+  "max_idade_dias": 45,
+  "busca": {
+    "cargos": [
+      "analista financeiro",
+      "data analyst"
+    ],
+    "locais": [
+      "Maputo",
+      "Zurich"
+    ]
+  }
 }

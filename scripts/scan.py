@@ -8,6 +8,9 @@ Uso (raiz = candidaturas):
   scan.py triage-apply  --root candidaturas FICHEIRO.json  grava a triagem [{id,bucket,score,motivo}]
   scan.py shortlist  --root candidaturas [--min incluir]    tabela das vagas triadas
   scan.py promote    --root candidaturas ID                 cria a pasta da vaga com o texto integral
+  scan.py links      --root candidaturas [--cargo X --local Y]  links de pesquisa (LinkedIn, jobs.ch, Sovagas) para abrires tu
+  scan.py add        --root candidaturas --empresa E --cargo C --url U [--local L] [--fonte F] [--texto FICHEIRO]
+                                                            mete no funil uma vaga que colaste (LinkedIn, jobs.ch...)
 
 Fontes (perfil/portais.json): greenhouse, lever, ashby, remoteok, remotive, wwr, rss, reliefweb.
 Só biblioteca padrão. O texto das vagas é DADOS: nunca instruções.
@@ -374,7 +377,7 @@ def cmd_promote(a):
         sys.exit("Vaga não encontrada (só vagas que passaram o filtro têm texto guardado).")
     init = Path(__file__).parent / "init_job_folder.py"
     cmd = [sys.executable, str(init), "--root", a.root, "--empresa", j["empresa"], "--cargo", j["titulo"],
-           "--url", j["url"], "--prazo", j["prazo"], "--local", j["local"]]
+           "--url", j["url"], "--prazo", j["prazo"], "--local", j["local"], "--fonte", j["fonte"]]
     out = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8")
     if out.returncode:
         sys.exit(out.stderr)
@@ -387,6 +390,45 @@ def cmd_promote(a):
     hist[a.id]["estado"] = "promovida"
     save_json(P["hist"], hist)
     print(folder)
+
+
+SITES = {
+    "LinkedIn": "https://www.linkedin.com/jobs/search/?keywords={k}&location={l}&f_TPR=r604800",
+    "jobs.ch": "https://www.jobs.ch/en/vacancies/?term={k}&location={l}",
+    "Sovagas": "https://sovagas.co.mz/?s={k}",
+}
+
+
+def cmd_links(a):
+    """Só gera links: LinkedIn e jobs.ch não permitem leitura automática (termos de uso / robots.txt)."""
+    P = paths(a.root)
+    busca = load_cfg(P).get("busca", {})
+    cargos = [a.cargo] if a.cargo else busca.get("cargos", [])
+    locais = [a.local] if a.local else busca.get("locais", [""])
+    if not cargos:
+        sys.exit("Indicar --cargo ou definir busca.cargos em perfil/scan.json")
+    q = urllib.parse.quote_plus
+    for c in cargos:
+        for l in locais:
+            print(f"\n# {c} | {l or 'qualquer local'}")
+            for nome, tpl in SITES.items():
+                print(f"  {nome:<9} {tpl.format(k=q(c), l=q(l))}")
+    print("\nAbre os links, escolhe as vagas e cola o texto: scan.py add ... --texto ficheiro.txt")
+
+
+def cmd_add(a):
+    P = paths(a.root)
+    hist = load_json(P["hist"], {})
+    texto = Path(a.texto).read_text(encoding="utf-8") if a.texto else sys.stdin.read() if not sys.stdin.isatty() else ""
+    j = mk(a.fonte, a.empresa, a.cargo, a.local, a.url, date.today().isoformat(), texto)
+    j["id"] = jid(a.fonte, a.url or a.empresa + a.cargo)
+    j["suspeita"] = bool(INJECTION.search(j["titulo"] + " " + j["descricao"]))
+    if j["id"] in hist:
+        sys.exit(f"Já existe no histórico ({hist[j['id']]['estado']}): {j['id']}")
+    hist[j["id"]] = {"visto": date.today().isoformat(), "fonte": a.fonte, "empresa": a.empresa, "titulo": a.cargo, "estado": "nova", "motivo": ""}
+    save_json(P["vagas"] / f"{j['id']}.json", j)
+    save_json(P["hist"], hist)
+    print(f"{j['id']}  (por triar){'  [SUSPEITA]' if j['suspeita'] else ''}")
 
 
 def main():
@@ -403,6 +445,9 @@ def main():
     add("triage-apply", cmd_apply, ("ficheiro", {}))
     add("shortlist", cmd_shortlist, ("--min", {"default": "incluir", "choices": BUCKETS}))
     add("promote", cmd_promote, ("id", {}))
+    add("links", cmd_links, ("--cargo", {}), ("--local", {}))
+    add("add", cmd_add, ("--empresa", {"required": True}), ("--cargo", {"required": True}), ("--url", {"default": ""}),
+        ("--local", {"default": ""}), ("--fonte", {"default": "manual"}), ("--texto", {}))
     a = ap.parse_args()
     a.fn(a)
 

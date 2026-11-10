@@ -25,6 +25,8 @@ DEFAULT_CONFIG = {
     "min_weakest_points": 3,
     "max_rounds": 4,
     "audit_max_age_days": 90,    # o CV mestre tem de ter sido confirmado pela pessoa nos últimos N dias
+    "followup": {"dias": [7, 14], "encerrar_apos_dias": 21},   # dias após o envio em que se sugere follow-up
+    "avaliacao": {"min_avancar": 3.5, "min_forte": 4.0},       # nota 0-5 da avaliação da vaga
     "ats_check": {
         "kw_coverage": 0.8,        # fração mínima das palavras-chave obrigatórias presentes
         "quant_ratio": 0.4,        # fração mínima de bullets com números

@@ -12,8 +12,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 from _common import utf8
-
-TRACKER_FIELDS = ["pasta", "data_criada", "empresa", "cargo", "local", "prazo", "url", "fit", "estado"]
+from tracker import FIELDS as TRACKER_FIELDS
 
 
 def slug(text: str, maxlen: int = 40) -> str:
@@ -32,6 +31,7 @@ def main():
     p.add_argument("--prazo", default="")
     p.add_argument("--local", default="")
     p.add_argument("--fit", default="")
+    p.add_argument("--fonte", default="")
     p.add_argument("--data", default=date.today().isoformat(), help="AAAA-MM-DD (default: hoje)")
     a = p.parse_args()
 
@@ -64,8 +64,9 @@ def main():
             rows = list(csv.DictReader(f))
     if not any(r.get("pasta") == name for r in rows):
         rows.append({
+            **{k: "" for k in TRACKER_FIELDS},
             "pasta": name, "data_criada": a.data, "empresa": a.empresa, "cargo": a.cargo,
-            "local": a.local, "prazo": a.prazo, "url": a.url, "fit": a.fit, "estado": "encontrada",
+            "local": a.local, "prazo": a.prazo, "url": a.url, "fit": a.fit, "estado": "encontrada", "fonte": a.fonte,
         })
         with tracker.open("w", newline="", encoding="utf-8") as f:
             w = csv.DictWriter(f, fieldnames=TRACKER_FIELDS)
