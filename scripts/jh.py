@@ -7,6 +7,7 @@
   hash      hash da versão do rascunho (--write grava .hash)      (gate.py hash)
   gate      valida a ronda e aprova/reprova                       (gate.py check)
   tracker   listar / mudar estado das candidaturas                (tracker.py)
+  scan      scan de vagas sem LLM: run, triage-export/apply, shortlist, promote (scan.py)
   extract   extrair texto de um CV .docx/.pdf                     (extract_text.py)
   audit     estado/confirmação da auditoria do CV mestre          (audit.py)
   install   instalar skill + subagentes (Claude Code/OpenCode)    (install.py)
@@ -21,7 +22,7 @@ sys.path.insert(0, str(HERE))
 from _common import utf8
 
 SCRIPTS = {"init": "init_job_folder.py", "build": "build_docx.py", "check": "ats_check.py", "tracker": "tracker.py",
-           "extract": "extract_text.py", "audit": "audit.py", "install": "install.py", "selftest": "selftest.py"}
+           "extract": "extract_text.py", "scan": "scan.py", "audit": "audit.py", "install": "install.py", "selftest": "selftest.py"}
 
 
 def doctor():

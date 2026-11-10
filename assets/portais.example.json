@@ -1,0 +1,13 @@
+{
+  "_ajuda": "tipo: greenhouse|lever|ashby (campo 'token' = nome da empresa no URL do quadro de vagas), remoteok, remotive (busca/categoria), wwr, rss (url), reliefweb (precisa de 'appname' aprovado em apidoc.reliefweb.int). Desligar uma fonte: \"ativa\": false.",
+  "fontes": [
+    {"nome": "RemoteOK", "tipo": "remoteok"},
+    {"nome": "Remotive", "tipo": "remotive"},
+    {"nome": "WeWorkRemotely", "tipo": "wwr"},
+    {"nome": "ReliefWeb Mocambique", "tipo": "reliefweb", "pais": "Mozambique", "appname": "", "ativa": false},
+    {"nome": "GitLab", "tipo": "greenhouse", "token": "gitlab"},
+    {"nome": "Palantir", "tipo": "lever", "token": "palantir"},
+    {"nome": "Ramp", "tipo": "ashby", "token": "ramp"},
+    {"nome": "Portal local (exemplo RSS)", "tipo": "rss", "url": "https://exemplo.co.mz/vagas/feed", "local": "Maputo", "ativa": false}
+  ]
+}

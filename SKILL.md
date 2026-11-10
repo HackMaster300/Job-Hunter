@@ -7,7 +7,7 @@ description: Assistente completo de candidaturas a emprego. Procura vagas na web
 
 Leva a pessoa de "onde posso concorrer?" a uma **pasta por vaga pronta a enviar**: vaga guardada, análise de fit, CV e carta adaptados e **aprovados por revisores independentes**, README com o passo a passo.
 
-**Âmbito (v1.2):** procurar → analisar → escrever → revisão multi-agente → README. A submissão é sempre feita pela pessoa. O que vem a seguir está em `references/roadmap.md` (não implementar agora).
+**Âmbito (v1.4):** scan em massa → triagem → analisar → escrever → revisão multi-agente → README. A submissão é sempre feita pela pessoa. O que vem a seguir está em `references/roadmap.md` (não implementar agora).
 
 ## Princípios (e porquê)
 
@@ -28,7 +28,7 @@ Os scripts estão em `${CLAUDE_SKILL_DIR}/scripts/`. No **Claude Code** esta var
 python "${CLAUDE_SKILL_DIR}/scripts/jh.py" <comando> ...      # usar python3 em macOS/Linux se "python" não existir
 ```
 
-Daqui para a frente `jh` abrevia esse comando. Comandos: `init`, `build`, `check`, `hash`, `gate`, `tracker`, `extract`, `audit`, `install`, `doctor`, `selftest`.
+Daqui para a frente `jh` abrevia esse comando. Comandos: `scan`, `init`, `build`, `check`, `hash`, `gate`, `tracker`, `extract`, `audit`, `install`, `doctor`, `selftest`.
 
 - **Primeira utilização:** correr `jh doctor`. Se faltar `python-docx`, instalar (`pip install python-docx`). LibreOffice é opcional (PDF e contagem de páginas exata).
 - **Pasta de trabalho:** `./candidaturas/` no diretório atual (ou onde a pessoa indicar). Não existe `present_files` nem pasta de saída especial: no fim, indicar os **caminhos** dos ficheiros.
@@ -81,7 +81,9 @@ A auditoria expira ao fim de 90 dias (configurável). Antes de cada nova vaga, s
 
 ### Passo 1 - Procurar vagas
 
-Ler `references/search-strategy.md` antes de pesquisar. Em resumo: várias consultas diferentes (cargo × local × sinónimos × portal), abrir cada anúncio completo, confirmar que está aberto e com prazo, desconfiar de anúncios suspeitos. Apresentar uma shortlist (5-10) com cargo, empresa, local, prazo, link e fit (Alto/Médio/Baixo + motivo), e perguntar quais avançar. Se a pessoa já deu uma vaga (link ou texto), saltar para o Passo 2. Muitos portais (ex.: LinkedIn) bloqueiam leitura automática: nesse caso pedir o texto da vaga colado.
+**1a. Scan em massa (preferido quando a pessoa quer "mais vagas" ou ainda não tem nenhuma).** Ler `references/triage.md` e correr `jh scan run --root candidaturas` (sem LLM: Greenhouse/Lever/Ashby, feeds remotos, ReliefWeb, RSS locais; deduplica e prefiltra). Depois triar em lote e `jh scan shortlist`; `jh scan promote ID` cria a pasta da vaga aprovada. Antes da 1ª corrida ajustar `perfil/scan.json` ao `perfil.md`.
+
+**1b. Pesquisa web (complemento).** Ler `references/search-strategy.md` antes de pesquisar. Em resumo: várias consultas diferentes (cargo × local × sinónimos × portal), abrir cada anúncio completo, confirmar que está aberto e com prazo, desconfiar de anúncios suspeitos. Apresentar uma shortlist (5-10) com cargo, empresa, local, prazo, link e fit (Alto/Médio/Baixo + motivo), e perguntar quais avançar. Se a pessoa já deu uma vaga (link ou texto), saltar para o Passo 2. Muitos portais (ex.: LinkedIn) bloqueiam leitura automática: nesse caso pedir o texto da vaga colado.
 
 ### Passo 2 - Criar a pasta e analisar
 

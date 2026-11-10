@@ -1,6 +1,7 @@
 # Estratégia de procura de vagas
 
 ## Ferramentas
+- **Primeiro o scan:** `jh scan run` (ver `triage.md`) cobre as fontes com API/RSS sem gastar tokens. A pesquisa web serve para o que o scan não alcança (LinkedIn, portais locais sem feed, páginas de carreiras sem API) e para descobrir fontes novas a acrescentar a `perfil/portais.json`.
 - Usar a pesquisa e a leitura de páginas web que o ambiente oferecer (Claude Code: `WebSearch`/`WebFetch`; OpenCode: `websearch`/`webfetch` se ativas; ou um MCP de pesquisa/browser configurado). Se não houver nenhuma, dizê-lo e pedir à pessoa links ou o texto das vagas.
 - Portais com login ou proteção anti-bot (LinkedIn, alguns portais locais) falham quase sempre ao abrir: pedir o texto colado em vez de insistir.
 - **Privacidade:** nas consultas só vão cargo, setor, localização e palavras do anúncio; nunca nome, contactos nem partes do CV.
