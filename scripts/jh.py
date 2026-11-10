@@ -13,6 +13,7 @@
   extract   extrair texto de um CV .docx/.pdf                     (extract_text.py)
   audit     estado/confirmação da auditoria do CV mestre          (audit.py)
   install   instalar skill + subagentes (Claude Code/OpenCode)    (install.py)
+  version   versão instalada
   doctor    verificar dependências e instalação
   selftest  teste automático de ponta a ponta com dados de exemplo
 """
@@ -25,6 +26,14 @@ from _common import utf8
 
 SCRIPTS = {"init": "init_job_folder.py", "build": "build_docx.py", "check": "ats_check.py", "tracker": "tracker.py",
            "extract": "extract_text.py", "scan": "scan.py", "eval": "evaluate.py", "stories": "stories.py", "audit": "audit.py", "install": "install.py", "selftest": "selftest.py"}
+
+
+def version():
+    try:
+        import json
+        return json.loads((HERE.parent / "package.json").read_text(encoding="utf-8"))["version"]
+    except Exception:
+        return "desconhecida (sem package.json)"
 
 
 def doctor():
@@ -61,6 +70,8 @@ def main():
     cmd, rest = sys.argv[1], sys.argv[2:]
     if cmd == "doctor":
         doctor()
+    if cmd == "version":
+        print(version()); return
     if cmd == "hash":
         target, rest = HERE / "gate.py", ["hash"] + rest
     elif cmd == "gate":

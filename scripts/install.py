@@ -64,7 +64,7 @@ def copy_skill(dest_skills):
     if dest.exists():
         shutil.rmtree(dest)
     dest_skills.mkdir(parents=True, exist_ok=True)
-    shutil.copytree(SKILL_DIR, dest, ignore=shutil.ignore_patterns("__pycache__", "*.pyc", ".git", "evals"))
+    shutil.copytree(SKILL_DIR, dest, ignore=shutil.ignore_patterns("__pycache__", "*.pyc", ".git", "evals", "node_modules", "bin", "package*.json", "docs", "*.png", "*.svg"))
     return dest
 
 

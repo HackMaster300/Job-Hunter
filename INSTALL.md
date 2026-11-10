@@ -4,7 +4,19 @@
 - Python 3.9+ e `pip install python-docx`
 - Opcional: LibreOffice (gerar PDF e contar páginas com exatidão), `pdftotext` (poppler) para ler PDFs
 
-## 2. Instalar (recomendado: uma pasta de trabalho só para candidaturas)
+## 2. Instalar com npx (mais simples)
+
+```bash
+mkdir ~/candidaturas-ws && cd ~/candidaturas-ws
+npx job-hunter-skill install                                   # Claude Code, só nesta pasta
+npx job-hunter-skill install --target both --scope user --deps # Claude Code + OpenCode, todos os projetos, e python-docx
+npx job-hunter-skill doctor                                    # verificar o ambiente
+npx job-hunter-skill jh scan run --root candidaturas           # qualquer comando do jh
+```
+
+Precisa de Node 18+ e Python 3.9+. Para fixar uma versão: `npx job-hunter-skill@1.6.0 install`. Atualizar: repetir com `@latest ... --force`. As versões publicadas correspondem às tags `vX.Y.Z` do repositório (ver `CHANGELOG.md`).
+
+## 2b. Instalar a partir do repositório
 
 ```bash
 mkdir ~/candidaturas-ws && cd ~/candidaturas-ws

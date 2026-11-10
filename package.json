@@ -1,0 +1,46 @@
+{
+  "name": "job-hunter-skill",
+  "version": "1.6.0",
+  "description": "Skill para Claude Code e OpenCode: scan de vagas, avaliação, CV e carta adaptados e revistos por 6 agentes. Nunca submete sozinho.",
+  "bin": {
+    "job-hunter-skill": "bin/cli.js"
+  },
+  "files": [
+    "bin/",
+    "scripts/",
+    "references/",
+    "assets/",
+    "SKILL.md",
+    "README.md",
+    "INSTALL.md",
+    "requirements.txt",
+    "docs/img/job-hunter-banner.png",
+    "docs/img/job-hunter-fluxo.png",
+    "docs/img/zharak-logo.png",
+    "!**/__pycache__",
+    "!**/*.pyc"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "claude-code",
+    "opencode",
+    "skill",
+    "job-search",
+    "cv",
+    "resume",
+    "ats",
+    "agents"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HackMaster300/Job-Hunter.git"
+  },
+  "homepage": "https://github.com/HackMaster300/Job-Hunter#readme",
+  "bugs": {
+    "url": "https://github.com/HackMaster300/Job-Hunter/issues"
+  },
+  "license": "UNLICENSED",
+  "author": "ZHARAK"
+}

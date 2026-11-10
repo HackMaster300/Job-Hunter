@@ -72,6 +72,8 @@ Em uma frase: **um agente escreve; seis tentam reprovar; só sai o que passa em 
 
 ## Instalação
 
+A forma mais rápida (Node 18+ e Python 3.9+): `npx job-hunter-skill install`. Detalhes, versões e instalação a partir do repositório em [INSTALL.md](INSTALL.md).
+
 Recomendado: **uma pasta de trabalho só para candidaturas**, com a skill instalada nessa pasta.
 
 ```bash
