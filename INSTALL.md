@@ -4,7 +4,9 @@
 - Python 3.9+ e `pip install python-docx`
 - Opcional: LibreOffice (gerar PDF e contar páginas com exatidão), `pdftotext` (poppler) para ler PDFs
 
-## 2. Instalar com npx (mais simples)
+## 2. Instalar com npx (quando o pacote estiver publicado)
+
+> Nota: na última verificação (2026-11-27) o pacote `job-hunter-skill` ainda não existia no registo npm. Até ser publicado, usa a secção 2b.
 
 ```bash
 mkdir ~/candidaturas-ws && cd ~/candidaturas-ws
@@ -27,7 +29,7 @@ python path/para/job-hunter/scripts/jh.py install --target claude-code --scope p
 
 Isto copia a skill, **gera os 6 subagentes revisores** (`jh-ats`, `jh-fact-checker`, `jh-hr`, `jh-hiring-manager`, `jh-language-editor`, `jh-skeptic`), cria `candidaturas/`, um `CLAUDE.md`/`AGENTS.md` com regras de privacidade e põe `candidaturas/` no `.gitignore`. Para atualizar uma instalação existente, acrescentar `--force`.
 
-Verificar: `python .claude/skills/job-hunter/scripts/jh.py doctor` e `... selftest` (14 testes com dados fictícios).
+Verificar: `python .claude/skills/job-hunter/scripts/jh.py doctor` e `... selftest` (39 verificações com dados fictícios, contagem estática).
 
 ## 3. Usar (a primeira conversa é uma entrevista)
 Na primeira vez, antes de procurar vagas, a skill **audita o teu CV**: pergunta o que mudou desde que foi escrito, confirma o título oficial de cada cargo (o do contrato ou da carta de referência, não um "mais bonito"), pede números e verifica as competências. O CV só é usado depois de confirmares que está correto e atual; a confirmação expira ao fim de 90 dias e o portão recusa vagas sem ela. Responde com calma: é isto que evita enviar um CV antigo ou com títulos que não são os teus.
