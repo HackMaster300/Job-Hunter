@@ -1,6 +1,6 @@
 # Changelog
 
-Versões semânticas; cada versão tem uma tag `vX.Y.Z` e corresponde ao pacote npm `job-hunter-skill`.
+Versões semânticas; cada versão tem uma tag `vX.Y.Z` e corresponde à versão do `package.json` (pacote npm `job-hunter-skill`, preparado para publicação).
 
 ## 1.6.0
 - Pacote npm `job-hunter-skill`: `npx job-hunter-skill install|doctor|selftest|jh ...`.
