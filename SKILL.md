@@ -7,7 +7,7 @@ description: Assistente completo de candidaturas a emprego. Procura vagas na web
 
 Leva a pessoa de "onde posso concorrer?" a uma **pasta por vaga pronta a enviar**: vaga guardada, análise de fit, CV e carta adaptados e **aprovados por revisores independentes**, README com o passo a passo.
 
-**Âmbito (v1.5):** scan em massa → triagem → avaliação A-G → escrever → revisão multi-agente → README → follow-up e padrões. A submissão é sempre feita pela pessoa. O que vem a seguir está em `references/roadmap.md` (não implementar agora).
+**Âmbito (v1.6):** scan em massa → triagem → avaliação A-G → escrever → revisão multi-agente → README → follow-up e padrões. A submissão é sempre feita pela pessoa. O que vem a seguir está em `references/roadmap.md` (não implementar agora).
 
 ## Princípios (e porquê)
 
