@@ -72,7 +72,7 @@ Em uma frase: **um agente escreve; seis tentam reprovar; só sai o que passa em 
 
 ## Instalação
 
-A forma mais rápida (Node 18+ e Python 3.9+): `npx job-hunter-skill install`. Detalhes, versões e instalação a partir do repositório em [INSTALL.md](INSTALL.md).
+A instalação suportada hoje é a partir do repositório (Python 3.9+), descrita abaixo e em [INSTALL.md](INSTALL.md). O repositório está preparado para publicação como pacote npm `job-hunter-skill` (`npx job-hunter-skill install`), mas na última verificação (2026-11-27) o pacote ainda não existia no registo npm, por isso não dependas desse comando.
 
 Recomendado: **uma pasta de trabalho só para candidaturas**, com a skill instalada nessa pasta.
 
@@ -101,7 +101,7 @@ O instalador faz isto:
 
 ```bash
 python .claude/skills/job-hunter/scripts/jh.py doctor     # dependências e instalação
-python .claude/skills/job-hunter/scripts/jh.py selftest   # 22 verificações com dados fictícios
+python .claude/skills/job-hunter/scripts/jh.py selftest   # 39 verificações com dados fictícios (contagem estática)
 ```
 
 Mais detalhes por ferramenta (permissões, modelo dos revisores, formato dos agentes no OpenCode) estão em [`INSTALL.md`](INSTALL.md).
@@ -380,9 +380,15 @@ Os ficheiros em `references/agents/` são a **única fonte de verdade** dos revi
 
 ---
 
+## Estado do projecto
+
+MVP funcional: o autoteste (`jh selftest`) cobre o fluxo de ponta a ponta com dados fictícios (39 verificações por contagem estática; não foi executado nesta revisão). Existe um workflow de GitHub Actions apenas para release por tag (verifica a versão, corre o selftest e publica); não há CI em pull requests. A versão é a do `package.json` (1.6.0).
+
+---
+
 ## Roadmap
 
-- **Atual (v1.5):** scan multi-fonte, triagem em lote, avaliação A-G com nota, portão multi-agente, auditoria do CV, README por vaga, follow-up, padrões e histórias STAR+R; Claude Code e OpenCode.
+- **Atual (v1.6):** o conjunto da v1.5 (scan multi-fonte, triagem em lote, avaliação A-G com nota, portão multi-agente, auditoria do CV, README por vaga, follow-up, padrões e histórias STAR+R; Claude Code e OpenCode), mais a versão `jh version`, a licença Apache-2.0 e o workflow de release por tag (pacote npm preparado, ainda por publicar).
 - **Próximo:** preencher formulários de candidatura com um browser automatizado, sempre com a tua revisão antes de submeter; criar rascunhos de email para aprovares.
 - **Depois:** monitorização periódica agendada de vagas novas e simulação de entrevista.
 
@@ -400,5 +406,5 @@ Apache License 2.0: ver [LICENSE](LICENSE).
 
 <p align="center">
   <img src="docs/img/zharak-logo.png" alt="Logótipo ZHARAK" width="72"><br>
-  <sub>Developed by <b>ZHARAK</b></sub>
+  <sub>Developed by <b>ZHARAK</b> (marca do autor, Zerdone Rocha)</sub>
 </p>
